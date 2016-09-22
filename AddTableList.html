@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            function AddTableList(form, tr){
+                var trlist = document.createElement('tr');                
+                var tablelist = document.getElementById('tablelist');
+                
+                trlist.appendChild(GetFormText(form.text1));
+                trlist.appendChild(GetFormText(form.text2));
+                trlist.appendChild(GetFormText(form.text3));
+                
+                //リスト追加ボタン追加
+                var listAddButton = document.createElement('td');
+                var inputButton = document.createElement('input');
+                inputButton.type = "button";
+                inputButton.value = "リスト追加";
+                inputButton.setAttribute("onclick", "AddTableList(this.form, this.tr)");
+                
+                listAddButton.appendChild(inputButton);
+                    
+                trlist.appendChild(listAddButton);
+                
+                tablelist.insertBefore(trlist, tr);
+            }
+            
+            function GetFormText(formText){
+                var td = document.createElement('td');
+                td.textContent = formText.value;
+                return td;
+            }
+        </script>
+            
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <form name="form1">
+            <input type="text" name="text1">
+            <input type="text" name="text2">
+            <input type="text" name="text3">
+            <table id="tablelist" border="1">
+                <tr>
+                    <th>書籍名</th>
+                    <th>著者</th>
+                    <th>価格</th>
+                    <th>
+                        <input type="button" value="リスト追加" onclick="AddTableList(this.form)">
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
+
