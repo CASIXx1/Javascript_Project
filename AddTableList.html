@@ -1,3 +1,9 @@
+ml>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -10,35 +16,38 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript">
-            function AddTableList(form, tr){
-                var trlist = document.createElement('tr');                
-                var tablelist = document.getElementById('tablelist');
-                
-                trlist.appendChild(GetFormText(form.text1));
-                trlist.appendChild(GetFormText(form.text2));
-                trlist.appendChild(GetFormText(form.text3));
-                
+            function addTableList(elem) {
+                var trlist = document.createElement('tr');
+                var tbody = document.getElementById('tbody1');
+
+                trlist.appendChild(GetFormText(document.form1.text1));
+                trlist.appendChild(GetFormText(document.form1.text2));
+                trlist.appendChild(GetFormText(document.form1.text3));
+
                 //リスト追加ボタン追加
                 var listAddButton = document.createElement('td');
                 var inputButton = document.createElement('input');
                 inputButton.type = "button";
                 inputButton.value = "リスト追加";
-                inputButton.setAttribute("onclick", "AddTableList(this.form, this.tr)");
+                inputButton.onclick = function () {
+                    addTableList(this);
+                };
+
                 
                 listAddButton.appendChild(inputButton);
-                    
                 trlist.appendChild(listAddButton);
                 
-                tablelist.insertBefore(trlist, tr);
+                var grandParent = elem.parentNode.parentNode;
+                tbody.insertBefore(trlist ,grandParent.nextSibling);
             }
-            
-            function GetFormText(formText){
+
+            function GetFormText(formText) {
                 var td = document.createElement('td');
                 td.textContent = formText.value;
                 return td;
             }
         </script>
-            
+
     </head>
     <body>
         <div>TODO write content</div>
@@ -47,14 +56,17 @@ and open the template in the editor.
             <input type="text" name="text2">
             <input type="text" name="text3">
             <table id="tablelist" border="1">
-                <tr>
-                    <th>書籍名</th>
-                    <th>著者</th>
-                    <th>価格</th>
-                    <th>
-                        <input type="button" value="リスト追加" onclick="AddTableList(this.form)">
-                    </th>
-                </tr>
+                <tbody id="tbody1">
+                    <tr>
+                        <th>書籍名</th>
+                        <th>著者</th>
+                        <th>価格</th>
+                        <th>
+                            <input type="button" value="リスト追加" onclick="addTableList(this)">
+                        </th>
+                    </tr>    
+                </tbody>
+
             </table>
         </form>
     </body>
