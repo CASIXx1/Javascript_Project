@@ -15,107 +15,35 @@ and open the template in the editor.
                 height: 700px;
                 width: 700px;
             }
-            
+
         </style>
         <script type="text/javascript">
-            window.onload(){
+            window.onload = function () {
                 var line = 8;
                 var row = 8;
-                
-                for (var i = 0; i < line; i++){
-                    document.createElement("tr");   
-                    for (var i = 0; i < row; i++){
-                        document.createElement("td");
+                var tbody = document.getElementById("tbody1");
+                var arrayLine = [];
+                var arrayRow = [];
+                var tr = [];
+
+                for (var i = 0; i < line; i++) {
+                    var tr = document.createElement("tr");
+                    
+                    for (var j = 0; j < row; j++) {
+                        tr.appendChild(document.createElement("td"));
                     }
+                    tbody.appendChild(tr);
                 }
+
             }
-            
+
         </script>
     </head>
     <body>
         <div>三目並べ</div>
         <table class="table1" border="1">
-            <tbody>
-                <tr id="tr1">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr2">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr3">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr4">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr5">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr6">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr7">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="tr8">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            <tbody id="tbody1">
+
             </tbody>
         </table>
     </body>
