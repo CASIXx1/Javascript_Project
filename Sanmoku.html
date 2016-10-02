@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+CTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -18,9 +18,10 @@ and open the template in the editor.
 
         </style>
         <script type="text/javascript">
-            window.onload = function () {
                 var line = 8;
                 var row = 8;
+            window.onload = function () {
+
                 var tbody = document.getElementById("tbody1");
                 var arrayLine = [];
                 var arrayRow = [];
@@ -28,7 +29,7 @@ and open the template in the editor.
 
                 for (var i = 0; i < line; i++) {
                     var tr = document.createElement("tr");
-                    
+
                     for (var j = 0; j < row; j++) {
                         tr.appendChild(document.createElement("td"));
                     }
@@ -36,6 +37,17 @@ and open the template in the editor.
                 }
 
             }
+
+            window.addEventListener('load', init);
+
+            function init() {
+                for (var i = 0; i < line * row; i++) {
+                    document.getElementsByTagName('td').item(i).addEventListener('click', function (e) {
+                        window.alert("上位要素");
+                    }); 
+                }
+            }
+            ;
 
         </script>
     </head>
@@ -48,4 +60,5 @@ and open the template in the editor.
         </table>
     </body>
 </html>
+
 
