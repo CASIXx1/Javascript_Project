@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <title>TestCanvasMouseEvent01.html</title>
+        <script>//<![CDATA[
+
+            /* 2009/08/05, 2010/03/03 */
+            var mouseDown = false;
+            var penX = 0;
+            var penY = 0;
+        //var penWidth = 10;
+            var ctx;
+            var shape = 'arc';
+            var color = "#001133";
+            var range = 10; //半径
+
+            function changeShape(elem) {
+                shape = elem.value;
+            }
+
+            function changeColor(elem) {
+                color = elem.value;
+            }
+
+            function changeRange(elem) {
+                range = elem.value;
+            }
+
+            function draw() {
+                if (!ctx) {
+                    var canvas = document.getElementById('canvas1');
+                    ctx = canvas.getContext('2d');
+                }
+
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                if (shape === 'arc') {
+                    ctx.arc(penX, penY, range, 0, Math.PI * 2, false);
+                } else if (shape === 'rect') {
+                    ctx.rect(penX, penY, range * 2, range * 2);
+                }
+                ctx.fill();
+            }
+
+            window.addEventListener('load', onMouseMove);
+            window.addEventListener('load', onMouseDown);
+            window.addEventListener('load', debug);
+
+            function onMouseMove(event) {
+                //マウスボタンを押している場合は描画する
+                if (mouseDown) {
+                    //マウス座標とCanvasの座標を適当に調整
+                    penX = event.clientX - 15;
+                    penY = event.clientY - 15;
+                    draw();
+                }
+                debug();
+            }
+
+            function onMouseDown(b) {
+                mouseDown = b;
+                debug();
+            }
+
+            function debug() {
+                var s = "筆の座標: " + penX + ", " + penY + "<br/>"
+                        + "マウスボタン:" + (mouseDown ? "押した" : "押していない") + "<br/>";
+                document.getElementById("mouse_state").innerHTML = s;
+            }
+
+        //]]></script>
+        <style>
+            body { background:#cccccc; margin:15px 15px; }
+            canvas#canvas1 {  background:#ffffff; }
+            pre { font-family:"ＭＳ Ｐゴシック"; font-size:10.5pt; line-height:150%; }
+        </style>
+    </head>
+    <body>
+
+        <div>
+            <canvas id="canvas1" width="400" height="400"
+                    onmousemove="onMouseMove(event)"
+                    onmouseout="onMouseDown(false)"
+                    onmouseup="onMouseDown(false)"
+                    onmousedown="onMouseDown(true)"></canvas>
+        </div>
+        <form>
+            <p>筆先：
+                <input type="radio" value="arc" name="shape" onclick="changeShape(this);"/>円弧
+                <input type="radio" value="rect" name="shape" onclick="changeShape(this);" />四角
+            </p>
+            <p>筆の色：
+                <!--//input typeの要素を渡す -->
+                <input type="color" name="color" onchange="changeColor(this)" /> 
+            </p>
+            <p>筆の大きさ：
+                <input type="range" name="range" onchange="changeRange(this)"/>
+            </p>
+
+        </form>
+
+        <div id="mouse_state"></div>
+
+
+        <pre>
+・マウスイベントを拾うサンプル
+  簡単な塗り絵。マウスをドラッグすると描画。
+
+・ノート
+  マウスの座標はウインド内の左上が (0,0)、Canvas の座標は 
+　Canvasの左上が (0,0) である点に注意。canvas の位置によって座
+　標がずれる。
+  単純な方法は body のマージンをゼロにして Canvas を左上に詰める。
+        </pre>
+
+    </body>
+</html>
+
+
