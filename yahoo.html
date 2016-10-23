@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            function asyncSend() {
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    var result = document.getElementById('result');
+                    if (req.readyState == 4) {
+                        if (req.status == 200) {
+                            var doc = req.responseXML;
+                            var nodes = doc.getElementsByTagName('Question');
+                            if (nodes.length == 0) {
+                                result.innerHTML = '合致する検索キーワードはありません';
+                            } else {
+                                var ul = document.createElement('ul');
+                                for (var i = 0; i < nodes.length; i++){
+                                    var node = nodes.item(i);
+                                    var li = document.createElement('li');
+                                    var anchor = document.createElement('a');
+                                    anchor.href = getNodeValue(node, 'Url');
+                                    anchor.target = '_blank';                                    
+                                    var link = document.createTextNode(getNodeValue(node, 'Content').substring(0,40));
+                                   
+                                    
+                                    anchor.appendChild(link);
+                                    li.appendChild(anchor);
+                                    ul.appendChild(li);
+                                }
+                            }
+                            result.replaceChild(ul, result.firstChild);
+                        } else {
+                            result.innerHTML = 'サーバエラーが発生しました'
+                        }
+                    } else {
+                        result.innerHTML = " 通信中...";
+                    }
+                }
+
+                req.open('GET', 'yahoo.php?keywd=' +
+                        encodeURIComponent(document.fm.name.value), true);
+                req.send(null);
+            }
+            
+            function getNodeValue(current, name){
+                var node = current.getElementsByTagName(name).item(0);
+                return node.firstChild.nodeValue;
+            }
+        </script>
+
+    </head>
+    <body>
+        <form name="fm">
+            <label>名前：
+                <input type="text" name="keywd" size="15" /></label>
+            <input type="button" name="submit" value="送信" onclick="asyncSend()" />
+        </form>
+        <div id="result"></div>
+    </body>
+</html>
