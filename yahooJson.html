@@ -29,7 +29,7 @@ and open the template in the editor.
                                     var anchor = document.createElement('a');
                                     anchor.href = nodes[i].Url;
                                     anchor.target = '_blank';                                    
-                                    var link = document.createTextNode(nodes[i].Content);
+                                    var link = document.createTextNode(nodes[i].Content.substring(0,40));
                                    
                                     anchor.appendChild(link);
                                     li.appendChild(anchor);
@@ -46,7 +46,7 @@ and open the template in the editor.
                 }
 
                 req.open('GET', 'yahooJson.php?keywd=' +
-                        encodeURIComponent(document.fm.name.value), true);
+                        encodeURIComponent(document.fm.keywd.value), true);
                 req.send(null);
             }
              
